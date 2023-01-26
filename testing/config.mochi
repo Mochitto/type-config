@@ -1,0 +1,14 @@
+[int] Money = 50
+# The amount of money you can use in the shop.
+
+[MyType] Shop's name = something
+# !!! Can only be letters from the English alphabet (a to z)
+# Where you are going to shop.
+
+[MyList] What to buy = 
+# !!! Must be three objects, divided by commas
+# What you are going to buy.
+
+[ExistingPath] Out directory = /Path/to/your/folder
+# !!! Must be an absolute path to an existing folder
+# Where your shopping list will be sent.

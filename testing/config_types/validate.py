@@ -3,8 +3,7 @@ import os
 
 def validate_int(number: str) -> bool:
     try:
-        int(number)
-        return True
+        return int(number) <= 100
     except ValueError:
         return False
 
