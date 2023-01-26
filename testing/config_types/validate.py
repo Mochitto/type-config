@@ -14,6 +14,7 @@ def validate_MyType(something: str) -> bool:
     return True
 
 def validate_MyList(list_of_things: str) -> bool:
+    if not list_of_things: return True
     things = list_of_things.split(",")
     return len(things) == 3
 

@@ -1,4 +1,4 @@
-from typing import Tuple, List, Dict, Any
+from typing import Tuple, List, Dict, Any, Set
 
 import easy_config.EasyConfig_types as ty
 import easy_config.EasyConfig_errors as er
@@ -19,14 +19,11 @@ class EasyConfig:
             cleaned_content.append(line)
         return "\n".join(cleaned_content)
 
-    def _get_option(self, line: str) -> Tuple[str, str, str]:
-        type, result1 = line.split("]", 1)
-        option, value = result1.split("=", 1)
-        if not line.startswith("["):
-            raise er.ParsingError(
-                "Found broken line that has a malformed type. "+
-                f"(Line: {type}] {option} = {value})")
-        return (type[1:].strip(), option.strip(), value.strip())
+    def _get_option(self, line: str) -> Tuple[str, str]:
+        # TODO: could still leave in the bit to recognize the type
+        # and leave it as a formatting choice
+        option, _, value = line.partition("=")
+        return (option.strip(), value.strip())
 
     def parse_file(self) -> Tuple[Dict[str, Any], List[str]]:  
         # TODO: might use a special error for missing types
@@ -36,17 +33,63 @@ class EasyConfig:
         config = {}
         errors = []
         for line in cleaned_file.splitlines():
+            option, value = self._get_option(line)
+            # TODO: this part could be its own "get_option"
+            # and do the whole default etc on its own
+            # with a try except
+            option_info = self._options.get(option, None)
+            if not option_info: 
+                errors.append(f"[{option}]: is not part of the expected options.")
+                continue
+
+            type = option_info["type"]
+            default = option_info["default"]
+            is_optional = option_info["optional"]
+
+            if not value:
+                value = default if default else None
+            if not value and not is_optional:
+                errors.append(f"[{option}]: was left blank, but needs a value.")
+                continue
+            # Until here
+
             try:
-                type, option, value = self._get_option(line)
                 is_valid = self._options_types[type]["validate"](value)
                 if is_valid:
                     config[option] = self._options_types[type]["cast"](value)
                 else: 
-                    errors.append(f"{option}: {self._options_types[type]['error']} (value: {value})")
+                    errors.append(f"[{option}]: {self._options_types[type]['error']} (value: {value})")
             except er.ParsingError as err:
                 errors.append(str(err))
                 continue
         return (config, errors)
+
+    def heal_file(self) -> None:
+        """
+        Restore the config file when corrupted.
+        If an option: value pair isn't corrupted,
+        the value is stored and the user's configuration
+        maintained, else, the default value is used.
+        """
+        file_content = self._get_file_content()
+        cleaned_file = self._clean_file(file_content)
+        
+        config = dict()
+        for line in cleaned_file.splitlines():
+            value = None
+            option, value = self._get_option(line) 
+            config[option] = value
+        
+        options_to_write = []
+        for option_info in self._options.values():
+            option = option_info["option"]
+            if option in config and config[option]:
+                option_info["default"] = config[option]
+
+            options_to_write.append(self._formatter(option_info))
+        
+        with open(self.file_name, "w") as config_file:
+            config_file.write("\n".join(options_to_write))
 
     def _get_file_content(self) -> str:
         with open(self.file_name, "r") as test_file:
@@ -81,15 +124,52 @@ class EasyConfig:
     def _formatter(self, option_info):
         constraints = option_info["constraints"]
 
-        result = "[{type}] {option} = {default}\n"
+        result = "{option} = {default}\n"
         result += "# !!! {constraints}\n" if constraints else ""
         result += "# {help}\n"
         return result.format(**option_info)
 
     def write_config(self) -> None:
         options_to_write = []
-        for option in self._options.values():
-            options_to_write.append(self._formatter(option))
+        for option_info in self._options.values():
+            options_to_write.append(self._formatter(option_info))
 
         with open(self.file_name, "w") as config_file:
             config_file.write("\n".join(options_to_write))
+
+    def validate_config(self, config: Dict[str, Any])-> Tuple[Dict[str, Any], Set[str]]:
+        """
+        Validate a pre-existing dictionary containing all, or a part, of 
+        the EasyConfig's options.
+        Return a tuple containing the validated data and 
+        a set with the options that were not valid.
+        """
+        bad_options = set()
+        validated_config = dict() 
+
+        for option, value in config.items():
+            try:
+                option_info = self._options[option]
+            except KeyError as err:
+                raise er.ParsingError(f"[{option}]: is not an expected option.") from err
+
+            type = option_info["type"]
+            validating_func = self._options_types[type]["validate"]
+            casting_func = self._options_types[type]["cast"]
+
+            default = option_info["default"]
+            is_optional = option_info["optional"]
+
+            if not value:
+                value = default if default else None
+            if not value and not is_optional:
+                raise er.ParsingError(f"[{option}]: was left blank, but needs a value.")
+
+            is_valid = validating_func(value)
+            if is_valid:
+                validated_config[option] = casting_func(value)
+            else:
+                bad_options.add(option)
+
+        return validated_config, bad_options
+

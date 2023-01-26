@@ -8,6 +8,7 @@ def cast_myType(something: str) -> ty.MyType:
     return something
 
 def cast_myList(something: str) -> ty.MyList:
+    if not something: return None
     myList = something.split(",")
     cleaned_list = [x.strip() for x in myList]
     return cleaned_list

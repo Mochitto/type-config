@@ -40,10 +40,18 @@ my_config.add_option(
         )
 
 # my_config.write_config()
-parsed_config, errors = my_config.parse_file()
+# parsed_config, errors = my_config.parse_file()
 
-print(parsed_config)
-if errors:
-    print("❌ There was something wrong with the configurations:")
-for error in errors:
-    print("--- " + error)
+# print(parsed_config)
+# if errors:
+#     print("❌ There was something wrong with the configurations:")
+# for error in errors:
+#     print("--- " + error)
+
+# print(my_config.validate_config({
+#     "Money": "102",
+#     "Shop's name": "awala",
+#     "What to buy": None
+#     }))
+
+my_config.heal_file()
