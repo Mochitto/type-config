@@ -1,7 +1,7 @@
-from easy_config import EasyConfig
+from type_config import TypeConfig
 
 class TestInputOutput:
-    config = EasyConfig()
+    config = TypeConfig()
 
     broken_config = """
     test4 = SOMETHING # Even added an inline comment

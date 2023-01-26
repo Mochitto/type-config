@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "type_config"
+version = "1.0.0"
+authors = [
+  { name="Biosa Alex", email="mochittodeveloper@gmail.com" },
+]
+description = "A small library that adds types and auto-validation to your config files!"
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [ 
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Utilities"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/Mochitto/type_config"
+"Bug Tracker" = "https://github.com/Mochitto/type_config/issues"

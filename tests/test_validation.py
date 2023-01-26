@@ -1,10 +1,10 @@
 import pytest
 
-from easy_config import EasyConfig
-from easy_config.EasyConfig_errors import ValidationError
+from type_config import TypeConfig
+from type_config.errors import ValidationError
 
 class TestInputOutput:
-    config = EasyConfig()
+    config = TypeConfig()
     validate = config._validate_option
 
     # Passing

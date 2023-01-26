@@ -1,7 +1,7 @@
-from easy_config import EasyConfig
+from type_config import TypeConfig
 
-class TestCleaning:
-    clean_file = EasyConfig()._clean_file
+class TypeConfig:
+    clean_file = TypeConfig()._clean_file
 
     formatted_config="""
     option = value

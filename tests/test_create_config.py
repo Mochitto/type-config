@@ -1,7 +1,7 @@
-from easy_config import EasyConfig
+from type_config import TypeConfig
 
 class TestInputOutput:
-    config = EasyConfig()
+    config = TypeConfig()
     
     formatted_output =(
             "test = value\n"

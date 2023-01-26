@@ -1,9 +1,9 @@
 from typing import Tuple, Dict, Any
 
-import easy_config.EasyConfig_errors as er
+import type_config.errors as er
 
 
-class EasyConfig:
+class TypeConfig:
     def __init__(self) -> None:
         self._options_types = {}
         self._options = {}
@@ -41,10 +41,7 @@ class EasyConfig:
         # Remove inline comments 
         line = line.split("#")[0]
 
-        option, equal_sign, value = line.partition("=")
-
-        if not equal_sign or not option:
-            raise er.ParsingError(f"A broken line has been found. [line]: '{line}'")
+        option, _, value = line.partition("=")
 
         return (option.strip(), value.strip())
 
@@ -119,7 +116,7 @@ class EasyConfig:
     ) -> Tuple[Dict[str, Any], Dict[str, str]]:
         """
         Validate a pre-existing dictionary containing all, or a part, of
-        the EasyConfig's options.
+        the TypeConfig's options.
         Return a tuple containing the validated data and
         a dictionary with the options that were not valid and their errors.
         """
@@ -129,7 +126,7 @@ class EasyConfig:
         for option, value in config.items():
             try:
                 validated_config = self._validate_option(option, value)
-            except er.ParsingError as err:
+            except er.ValidationError as err:
                 errors[option] = str(err)
 
         return validated_config, errors

@@ -1,10 +1,10 @@
 import pytest
 
-from easy_config import EasyConfig
-from easy_config.EasyConfig_errors import ParsingError
+from type_config import TypeConfig
+from type_config.errors import ParsingError
 
 class TestGetOption:
-    get_option = EasyConfig()._get_option
+    get_option = TypeConfig()._get_option
 
     line = "my option = value"
     line_with_types = "[A type] my option = value"
