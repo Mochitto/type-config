@@ -6,8 +6,22 @@ The project's focus is on readability and maintainability, using a simple ini-li
 This project is being tested and very young. There could be updates soon and not everything might work as expected.<br>
 If you find a problem, please write an issue, so I'll be able to solve it :)
 
-## Table of contents 📝
-[[toc]]
+## Table of contents (for github) 📝
+- [Type config ⭐🐙](https://github.com/Mochitto/type_config/#Type-config-)
+  - [Features](https://github.com/Mochitto/type_config/#Features)
+  - [Demo](https://github.com/Mochitto/type_config/#Demo)
+- [Getting started](https://github.com/Mochitto/type_config/#Getting-started)
+  - [Installation 🔧](https://github.com/Mochitto/type_config/#Installation-)
+  - [Adding options](https://github.com/Mochitto/type_config/#Adding-options)
+  - [Adding types](https://github.com/Mochitto/type_config/#Adding-types)
+  - [Creating a file](https://github.com/Mochitto/type_config/#Creating-a-file)
+  - [Parsing a file](https://github.com/Mochitto/type_config/#Parsing-a-file)
+  - [Validating an existing dictionary](https://github.com/Mochitto/type_config/#Validating-an-existing-dictionary)
+  - [Merging configurations](https://github.com/Mochitto/type_config/#Merging-configurations)
+  - [Healing a broken configuration](https://github.com/Mochitto/type_config/#Healing-a-broken-configuration)
+  - [Error handling 🔧](https://github.com/Mochitto/type_config/#Error-handling-)
+- [Contributing 💕](https://github.com/Mochitto/type_config/#Contributing-)
+- [Extra 🐙](https://github.com/Mochitto/type_config/#Extra-)
 
 ## Features
 - Define custom types for the validation of your config file's data, applied during parsing
