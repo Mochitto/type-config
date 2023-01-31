@@ -18,14 +18,14 @@ class TypeConfig:
         help: str,
         default="",
         can_be_empty=False,
-        constraints="",
+        important_help="",
     ):
         self._options[option] = {
             "type": type,
             "option": option,
             "default": default,
             "can_be_empty": can_be_empty,
-            "constraints": constraints,
+            "important_help": important_help,
             "help": help,
         }
 
@@ -178,12 +178,12 @@ class TypeConfig:
         return result_config
 
     def _formatter(self, option_info, add_type=False):
-        constraints = option_info["constraints"]
+        important_help = option_info["important_help"]
 
         result = (
             "[{type}] {option} = {default}\n" if add_type else "{option} = {default}\n"
         )
-        result += "# !!! {constraints}\n" if constraints else ""
+        result += "# !!! {important_help}\n" if important_help else ""
         result += "# {help}"
         return result.format(**option_info)
 

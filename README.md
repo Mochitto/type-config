@@ -41,7 +41,7 @@ config.add_option(
   option="shopping list",
   type="List>=3",
   help="What I have to buy",
-  constraints="Must be a list of at least three items, separated by commas",
+  important_help="Must be a list of at least three items, separated by commas",
 )
 ```
 Adding a type (they can have descriptive names❗):
@@ -88,7 +88,7 @@ They hold many information useful when parsing and debugging.
  `help` | An help string used to explain what the option does or what it is for.<br>This is showed under the option in the config file. | `Required`
  `default` | A default value used when the option is left blank | `Empty_string`
  `can_be_empty` | Whether or not the option can be left without a value. <br>Notice: default is applied when there is no value, so it's suggested using this option while leaving `default` empty. | `False`
- `constraints` | Extra information that could be useful when writing the option's value | `Empty_string`
+ `important_help` | Extra information that could be useful when writing the option's value | `Empty_string`
 
 ## Adding types
 Types are added using the method `add_type` of a TypeConfig object.
@@ -167,11 +167,11 @@ option = my value # another inline comment
 will become:
 ```ini
 [BrokenType] with a broken option = default
-# !!! This are the constraints
+# !!! This are the important_help
 # And this is the help line
 
 [BrokenType] option = my value
-# !!! This are the constraints
+# !!! This are the important_help
 # And this is the original help line
 ```
 

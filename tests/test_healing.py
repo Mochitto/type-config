@@ -61,7 +61,7 @@ class TestInputOutput:
                 type="TestType",
                 help="A test option",
                 default="default value",
-                constraints="The test must pass"
+                important_help="The test must pass"
                 )
         self.config.add_option(
                 option="test2",
@@ -77,7 +77,7 @@ class TestInputOutput:
                 option="test4",
                 type="TestType",
                 help="A test option",
-                constraints="Must be all caps"
+                important_help="Must be all caps"
                 )
 
     def test_healing(self):

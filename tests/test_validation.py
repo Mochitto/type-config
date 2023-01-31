@@ -22,7 +22,7 @@ class TestInputOutput:
                 option="test",
                 type="TestType",
                 help="A test option",
-                constraints="The test must pass"
+                important_help="The test must pass"
                 )
         self.config.add_option(
                 option="emptyTest",
