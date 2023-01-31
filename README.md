@@ -7,21 +7,21 @@ This project is being tested and very young. There could be updates soon and not
 If you find a problem, please write an issue, so I'll be able to solve it :)
 
 ## Table of contents (for github) 📝
-- [Type config ⭐🐙](https://github.com/Mochitto/type_config/#Type-config-)
-  - [Features](https://github.com/Mochitto/type_config/#Features)
-  - [Demo](https://github.com/Mochitto/type_config/#Demo)
-- [Getting started](https://github.com/Mochitto/type_config/#Getting-started)
-  - [Installation 🔧](https://github.com/Mochitto/type_config/#Installation-)
-  - [Adding options](https://github.com/Mochitto/type_config/#Adding-options)
-  - [Adding types](https://github.com/Mochitto/type_config/#Adding-types)
-  - [Creating a file](https://github.com/Mochitto/type_config/#Creating-a-file)
-  - [Parsing a file](https://github.com/Mochitto/type_config/#Parsing-a-file)
-  - [Validating an existing dictionary](https://github.com/Mochitto/type_config/#Validating-an-existing-dictionary)
-  - [Merging configurations](https://github.com/Mochitto/type_config/#Merging-configurations)
-  - [Healing a broken configuration](https://github.com/Mochitto/type_config/#Healing-a-broken-configuration)
-  - [Error handling 🔧](https://github.com/Mochitto/type_config/#Error-handling-)
-- [Contributing 💕](https://github.com/Mochitto/type_config/#Contributing-)
-- [Extra 🐙](https://github.com/Mochitto/type_config/#Extra-)
+- [Type config ⭐🐙](#type-config-)
+  - [Features](#features)
+  - [Demo](#demo)
+- [Getting started](#getting-started)
+  - [Installation 🔧](#installation-)
+  - [Adding options](#adding-options)
+  - [Adding types](#adding-types)
+  - [Creating a file](#creating-a-file)
+  - [Parsing a file](#parsing-a-file)
+  - [Validating an existing dictionary](#validating-an-existing-dictionary)
+  - [Merging configurations](#merging-configurations)
+  - [Healing a broken configuration](#healing-a-broken-configuration)
+  - [Error handling 🔧](#error-handling-)
+- [Contributing 💕](#contributing-)
+- [Extra 🐙](#extra-)
 
 ## Features
 - Define custom types for the validation of your config file's data, applied during parsing
@@ -195,7 +195,7 @@ This is a list of when they are used (all of these errors should be handled inte
 # Contributing 💕
 Feel free to open issues asking for more information or to reach out to me!
 
-- Please make sure all the [tests](https://github.com/Mochitto/type_config/tree/main/testing) are passing before opening a pull request. You can use [pytest](https://pypi.org/project/pytest/) for this.
+- Please make sure all the [tests](https://github.com/Mochitto/type_config/tree/main/tests) are passing before opening a pull request. You can use [pytest](https://pypi.org/project/pytest/) for this.
 - Please use types when possible (you can be helped by [pyright](https://pypi.org/project/pyright/) or [mypy](https://pypi.org/project/mypy/)).
 - Please don't reformat the file in the same commit as your refactoring/contribution (if you want to, use [black](https://pypi.org/project/black/)); this is best done in its own commit, to make clear what changed in which commit.
 - Please do not use abbreviations when naming variables or functions (I have an hard time understanding them :( ).
