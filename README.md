@@ -73,7 +73,7 @@ If there are errors, the parsing won't crash; it will give you a list of which o
 # Getting started 🔥
 ## Installation 🔧
 Install the package using pip
-```
+```bash
 pip install type_config
 ```
 
@@ -87,7 +87,7 @@ They hold many information useful when parsing and debugging.
  `type` | The type associated with this option | `Required`
  `help` | An help string used to explain what the option does or what it is for.<br>This is showed under the option in the config file. | `Required`
  `default` | A default value used when the option is left blank | `Empty_string`
- `can_be_empty` | Whether or not the option can be left without a value. <br>Notice: default is applied when there is no value, so it's suggested using this option while leaving `default` empty. | `False`
+ `can_be_empty` | Whether or not the option can be left without a value.<br>The value that will be given is `None`.<br>Notice: default is applied when there is no value, so it's suggested using this option while leaving `default` empty. | `False`
  `important_help` | Extra information that could be useful when writing the option's value | `Empty_string`
 
 ## Adding types
