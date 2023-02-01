@@ -41,7 +41,10 @@ class TypeConfig:
         # Remove inline comments 
         line = line.split("#")[0]
 
-        option, _, value = line.partition("=")
+        option, equal_sign, value = line.partition("=")
+
+        if not equal_sign or not option:
+            raise er.ParsingError(f"A broken line has been found.")
 
         return (option.strip(), value.strip())
 
@@ -103,11 +106,17 @@ class TypeConfig:
         config = {}
         errors = {}
         for line in cleaned_file.splitlines():
-            option, value = self._get_option(line)
+            try:
+                option, value = self._get_option(line)
+            except er.ParsingError as err:
+                errors[line.strip()] = str(err) 
+                continue
+
             try:
                 config[option] = self._validate_option(option, value)
             except er.ValidationError as err:
                 errors[option] = str(err)
+                continue
 
         return (config, errors)
 

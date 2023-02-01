@@ -26,6 +26,19 @@ class TestInputOutput:
             }
     result_error = {"test2": "[test2]: can't be left empty."}
 
+    formatted_input_with_corrupted = (
+            "[TestType] test value\n"
+            "test = value\n"
+            "test | value                 "
+            )
+    corrupted_result = {
+            "test": "Test passed"
+            }
+    corrupted_result_error = {
+            "[TestType] test value" : "A broken line has been found.",
+            "test | value" : "A broken line has been found."
+            }
+
     def setup_class(self):
         self.config.add_option(
                 option="test",
@@ -57,6 +70,9 @@ class TestInputOutput:
 
     def test_parsing_with_types(self):
         assert self.config.parse_config(self.formatted_output_with_type) == (self.result_config, self.result_error)
+
+    def test_corrupted_lines(self):
+        assert self.config.parse_config(self.formatted_input_with_corrupted) == (self.corrupted_result, self.corrupted_result_error)
 
 
 
