@@ -178,13 +178,14 @@ class TypeConfig:
         return result_config
 
     def _formatter(self, option_info, add_type=False):
-        important_help = option_info["important_help"]
+        help = "\n".join([f"# {line}" for line in option_info["help"].splitlines()]) 
+        important_help = "\n".join([f"# !!! {line}" for line in option_info["important_help"].splitlines()]) 
 
         result = (
             "[{type}] {option} = {default}\n" if add_type else "{option} = {default}\n"
         )
-        result += "# !!! {important_help}\n" if important_help else ""
-        result += "# {help}"
+        result += f"{important_help}\n" if important_help else ""
+        result += help
         return result.format(**option_info)
 
     def create_config(self, format_with_types=False) -> str:
