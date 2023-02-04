@@ -17,6 +17,16 @@ class TestInputOutput:
     config_bad_empty_value = ("test", "")
     config_bad_value = ("test", "")
 
+    existing_config = {
+            "test": "value",
+            "emptyTest": None
+            }
+
+    existing_config_err = {
+            "test": None,
+            "emptyTest": None
+            }
+
     def setup_class(self):
         self.config.add_option(
                 option="test",
@@ -48,6 +58,12 @@ class TestInputOutput:
                 cast=lambda x: "Test passed",
                 error="The test value was not 'value'"
                 )
+
+    def test_validating_existing_config(self):
+        assert self.config.validate_config(self.existing_config) == ({"test": "Test passed", "emptyTest": "Test passed"}, {})
+
+    def test_validating_existing_config_err(self):
+        assert self.config.validate_config(self.existing_config_err) == ({"emptyTest": "Test passed"}, {"test": "[test]: can't be left empty."})
 
     def test_config(self):
         assert self.validate(*self.config_good) == "Test passed"

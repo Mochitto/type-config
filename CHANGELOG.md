@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
  
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.0.4] - 2023-02-04
+
+### Fixed
+- Fixed a bug in `validate_config`, which would re-assign the options' value to the whole config (if the value was True, the config would now be "True" instead of {option: True}) 
+
 ## [1.0.3] - 2023-02-04
 
 ### Fixed

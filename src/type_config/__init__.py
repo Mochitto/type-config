@@ -134,7 +134,7 @@ class TypeConfig:
 
         for option, value in config.items():
             try:
-                validated_config = self._validate_option(option, value)
+                validated_config[option] = self._validate_option(option, value)
             except er.ValidationError as err:
                 errors[option] = str(err)
 
