@@ -36,6 +36,20 @@ class TestInputOutput:
             "test": None
             }
 
+    overwriting_with_falsy = {
+            "test": False,
+            }
+
+    overwrited_with_falsy = {
+            "test": True,
+            "test2": False
+            }
+
+    result_with_falsy = {
+            "test": False,
+            "test2": False
+            }
+
 
     def setup_class(self):
         self.config.add_option(
@@ -76,4 +90,7 @@ class TestInputOutput:
     def test_bad_empty_value(self):
         with pytest.raises(ParsingError):
             self.config.merge_config(self.bad_overwriting_empty, self.overwrited)
+
+    def test_falsy_values(self):
+        assert self.config.merge_config(self.overwriting_with_falsy, self.overwrited_with_falsy) == self.result_with_falsy
 

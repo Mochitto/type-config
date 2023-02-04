@@ -171,9 +171,9 @@ class TypeConfig:
             default_value = option_info["default"]
             can_be_empty = option_info["can_be_empty"]
 
-            if overwriting_value:
+            if overwriting_value is not None:
                 result_value = overwriting_value
-            elif overwrited_value:
+            elif overwrited_value is not None:
                 result_value = overwrited_value
             elif default_value:
                 result_value = default_value

@@ -143,7 +143,9 @@ The options' values priority is:
 3. Default value from the TypeConfig object 
 4. raise `ParsingError` if option can't be empty, else value is `None`
 
+Notice: Falsy options are considered valid values. Only `None` values are overwritten: to make sure the merging goes as expected, you might want to specify a `default=None` if parsing cli arguments with argparse and using `store_true` or `store_false`.
 Notice: no validation is done during this operation and only options present in the input configurations will be written to the result.
+
 
  Parmeter | Description | Default 
  :---- | :---- | :---- 
