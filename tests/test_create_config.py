@@ -63,7 +63,9 @@ class TestInputOutput:
         assert self.config.create_config() == self.formatted_output
 
     def test_create_with_types(self):
-        assert self.config.create_config(format_with_types=True) == self.formatted_output_with_type
+        self.config.type_hint = True
+        assert self.config.create_config() == self.formatted_output_with_type
+        self.config.type_hint = False
 
     def test_parsing(self):
         assert self.config.parse_config(self.formatted_output) == (self.result_config, self.result_error)

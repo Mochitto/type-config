@@ -4,9 +4,10 @@ import type_config.errors as er
 
 
 class TypeConfig:
-    def __init__(self) -> None:
+    def __init__(self, type_hint=False) -> None:
         self._options_types = {}
         self._options = {}
+        self.type_hint = type_hint
 
     def add_type(self, type, validate, cast, error):
         self._options_types[type] = {"validate": validate, "cast": cast, "error": error}
@@ -197,7 +198,7 @@ class TypeConfig:
         result += help
         return result.format(**option_info)
 
-    def create_config(self, format_with_types=False) -> str:
+    def create_config(self) -> str:
         """
         Return a formatted string that can be written to a file
         with your configuration's options, values and comments.
@@ -205,12 +206,12 @@ class TypeConfig:
         options_to_write = []
         for option_info in self._options.values():
             options_to_write.append(
-                self._formatter(option_info, format_with_types)
+                self._formatter(option_info, self.type_hint)
             )
 
         return "\n\n".join(options_to_write)
 
-    def heal_file(self, file_content: str, format_with_types=False) -> str:
+    def heal_config(self, file_content: str) -> str:
         """
         Restore the config file when corrupted.
         If an {option: value} pair isn't corrupted,
@@ -236,7 +237,7 @@ class TypeConfig:
                 option_info["default"] = config[option]
 
             options_to_write.append(
-                self._formatter(option_info, format_with_types)
+                self._formatter(option_info, self.type_hint)
             )
 
         return "\n\n".join(options_to_write)

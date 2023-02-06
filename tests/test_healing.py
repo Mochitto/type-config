@@ -81,7 +81,10 @@ class TestInputOutput:
                 )
 
     def test_healing(self):
-        assert self.config.heal_file(self.broken_config) == self.healed_config 
+        assert self.config.heal_config(self.broken_config) == self.healed_config 
 
     def test_type_healing(self):
-        assert self.config.heal_file(self.broken_config_with_types, True) == self.healed_config_with_types
+        self.config.type_hint = True
+        assert self.config.heal_config(self.broken_config_with_types) == self.healed_config_with_types
+        self.config.type_hint = False
+

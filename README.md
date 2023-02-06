@@ -12,6 +12,7 @@ If you find a problem, please write an issue, so I'll be able to solve it :)
   - [Demo](#demo)
 - [Getting started](#getting-started)
   - [Installation 🔧](#installation-)
+  - [Initialisation](#initialising-the-typeconfig-object)
   - [Adding options](#adding-options)
   - [Adding types](#adding-types)
   - [Creating a file](#creating-a-file)
@@ -29,11 +30,14 @@ If you find a problem, please write an issue, so I'll be able to solve it :)
 - Possibility of recovering a corrupted (badly formatted) file
 - Merging configurations (useful when having CLI arguments and a config file)
 - Attaching error and help messages to each option, for clear and effective communication 
+- Adding type hints to your configuration file to help you during development
 
 ## Demo
 This is how you would create a `type_config` object:
 ```python
 config = TypeConfig()
+# OR, if you want type hints in your config file:
+config = TypeConfig(type_hint=True)
 ```
 Adding options:
 ```python
@@ -77,6 +81,17 @@ Install the package using pip
 pip install type_config
 ```
 
+## Initialising the TypeConfig object
+The TypeConfig object is the main interface used by this library to help you handle configuration files and validation.
+
+```python
+config = TypeConfig(type_hint:bool=False)
+```
+
+ Parmeter | Description | Default 
+ :---- | :---- | :---- 
+`type_hint` | Whether or not to add type hints to your config file.<br>This initialises the class' `self.type_hint`, which can later on be changed directly by the user and is used by `heal_config` and `create_config`. | `False` |
+
 ## Adding options
 Options are added using the method `add_option` of a TypeConfig object.
 
@@ -103,13 +118,10 @@ They are used for data validation.
 
 ## Creating a file
 You can obtain the formatted text of a config file with the `create_config` method of a TypeConfig's object.
+If `self.type_hint` is set to `True`, type hints will be added before each option. This DOES NOT have any effect on the parsing are are just "hints" for the developer.
 
 Notice: the library doesn't write directly to a file, instead it returns a string that can be written to an ini file.
 This is done so that the user has more control over the output path and exceptions handling.
-
- Parmeter | Description | Default 
- :---- | :---- | :---- 
- `format_with_types` | Whether or not to include type hints in the config file. These are mainly for development.<br>Type hints do not change the parsing steps and can be added or removed at any time, using the `heal_config` method. | `False`
 
 ## Parsing a file
 You can obtain a dictionary with your validated data using the `parse_config` method of a TypeConfig object.
@@ -155,6 +167,8 @@ Notice: no validation is done during this operation and only options present in 
 ## Healing a broken configuration
 The library has a method for "healing" badly formatted configurations, which is the `heal_config` method of a TypeConfig object. This method maintains {option: value} pairs if the option, equal sign and value are formatted correctly and the option is part of the TypeConfig object. This method also restores comments and whitespaces.
 
+Another use for this method is switching between a configuration file with type hints and one without. This behaviour is set by `self.type_hint`'s value and can be useful during debugging.
+
 The returning value is a string (the healed configuration).
 
 Example:
@@ -180,7 +194,9 @@ will become:
  Parmeter | Description | Default 
  :---- | :---- | :---- 
  `file_content` | A string representing the broken file content to restore. | `Required`
- `format_with_types` | Whether or not to include type hints in the restored config file. These are mainly for development.<br>Type hints do not change the parsing steps and can be added or removed safely at any time using this method. | `False`
+
+### Known bugs:
+- `Heal_config` does not remove duplicate options for now; a fix is planned.
 
  ## Error Handling 🔧
 This library has only two kinds of errors: `ParsingError` and `ValidationError`.<br>They can be imported using:
