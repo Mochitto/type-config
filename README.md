@@ -15,6 +15,7 @@ If you find a problem, please write an issue, so I'll be able to solve it :)
   - [Initialisation](#initialising-the-typeconfig-object)
   - [Adding options](#adding-options)
   - [Adding types](#adding-types)
+  - [Getters](#getters)
   - [Creating a file](#creating-a-file)
   - [Parsing a file](#parsing-a-file)
   - [Validating an existing dictionary](#validating-an-existing-dictionary)
@@ -115,6 +116,15 @@ They are used for data validation.
  `validate` | A function that returns a boolean, which is used to validate the option's value. | `Required`
  `cast` | A function that "casts" a specific type upon the option's value, effectively transforming it from string to the desired type. | `Required`
  `error` | A message describing what could be the reason when the option's value is considered invalid.<br>This is showed under the option in the config file. | `Required`
+
+## Getters
+You can get a COPY of the options and types of a TypeConfig object by using `get_options` and `get_types`.
+These are to be used for testing, debugging or visualization, not for modifying the existing values.
+
+Method | Description  
+:---- | :----  
+`get_options` | Get all of the options added so far to the TypeConfig object
+`get_types` | Get all of the types added so far to the TypeConfig object
 
 ## Creating a file
 You can obtain the formatted text of a config file with the `create_config` method of a TypeConfig's object.
@@ -222,4 +232,4 @@ Feel free to open issues asking for more information or to reach out to me!
 # Extra 🐙
 Built with love at [Recurse Center](https://www.recurse.com/)
 
-![Recurse center's logo](https://d29xw0ra2h4o4u.cloudfront.net/assets/logo_square-60e12570c3a1b0b0798e651a0755f71a40ff15421761b786f720e4c02fc89a1f.png)
+![Recurse center's logo](https://d29xw0ra2h4o4u.cloudfront.net/assets/logo_square-60e12570c3a1b0b0798e651.1.05f71a40ff15421761b786f720e4c02fc89a1f.png)

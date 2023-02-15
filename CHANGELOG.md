@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
  
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.1.0] - 2023-02-15
+
+### Added
+- Added `get_options` as a getter to allow users to access the list of options of a TypeConfig object
+- Added `get_types` as a getter to allow users to access the list of types of a TypeConfig object
+
 ## [1.0.5] - 2023-02-06
 
 ### Fixed

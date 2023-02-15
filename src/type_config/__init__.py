@@ -30,6 +30,12 @@ class TypeConfig:
             "help": help,
         }
 
+    def get_options(self):
+        return self._options.copy()
+
+    def get_types(self):
+        return self._options_types.copy()
+
     def _get_option(self, line: str) -> Tuple[str, str]:
         """
         Extract option and value from the given line.
