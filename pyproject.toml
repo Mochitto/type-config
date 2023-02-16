@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "type_config"
-version = "1.1.0"
+version = "1.1.1"
 authors = [
   { name="Biosa Alex", email="mochittodeveloper@gmail.com" },
 ]
@@ -23,5 +23,5 @@ classifiers = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/Mochitto/type_config"
-"Bug Tracker" = "https://github.com/Mochitto/type_config/issues"
+"Homepage" = "https://github.com/Mochitto/type-config"
+"Bug Tracker" = "https://github.com/Mochitto/type-config/issues"
