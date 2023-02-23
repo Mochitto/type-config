@@ -22,9 +22,10 @@ class TestInputOutput:
             )
 
     result_config = {
-            "test": "Test passed",
+            "test": "value",
+            "test2": ""
             }
-    result_error = {"test2": "[test2]: can't be left empty."}
+    result_error = {}
 
     formatted_input_with_corrupted = (
             "[TestType] test value\n"
@@ -32,7 +33,7 @@ class TestInputOutput:
             "test | value                 "
             )
     corrupted_result = {
-            "test": "Test passed"
+            "test": "value"
             }
     corrupted_result_error = {
             "[TestType] test value" : "A broken line has been found.",

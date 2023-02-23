@@ -107,7 +107,11 @@ class TypeConfig:
                 f"[{option}]: {self._options_types[type]['error']} (value: {value})"
             )
 
-    def parse_config(self, file_content: str) -> Tuple[Dict[str, Any], Dict[str, str]]:
+    def parse_config(self, file_content: str) -> Tuple[Dict[str, str], Dict[str, str]]:
+        """
+        Parse the given string to extract the {option: value} pairs.
+        Return a Tuple containing the extracted_values and parsing_errors.
+        """
         cleaned_file = self._clean_file(file_content)
 
         config = {}
@@ -119,11 +123,7 @@ class TypeConfig:
                 errors[line.strip()] = str(err) 
                 continue
 
-            try:
-                config[option] = self._validate_option(option, value)
-            except er.ValidationError as err:
-                errors[option] = str(err)
-                continue
+            config[option] = value
 
         return (config, errors)
 
@@ -205,6 +205,7 @@ class TypeConfig:
         return result.format(**option_info)
 
     def create_config(self) -> str:
+        # TODO: I should change the default value here using another dictionary
         """
         Return a formatted string that can be written to a file
         with your configuration's options, values and comments.

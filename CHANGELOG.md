@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The Major version 1.y.z is to be considered in development; things can break and change at any moment. 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.2.0] - 2023-02-23
+
+### Changed
+- Now `parse_config` doesn't validate the configuration while parsing. This makes the function do only one thing (better for debugging) and allows for easier testing and merging.
+
 ## [1.1.1] - 2023-02-16
 
 ### Fixed

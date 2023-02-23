@@ -7,6 +7,21 @@ class TestInputOutput:
     config = TypeConfig()
     validate = config._validate_option
 
+    # Testing from parsing
+    formatted_output_with_type = (
+        "[TestType] test = value\n"
+        "# !!! The test must pass\n"
+        "# A test option\n"
+        "\n"
+        "[TestType] test2 = \n"
+        "# A test option"
+        )
+
+    result_from_formatted_output = (
+            {"test": "Test passed"},
+            {"test2": "[test2]: can't be left empty."}
+        )
+
     # Passing
     config_good = ("test", "value")
     config_good_empty_value = ("emptyTest", "")
@@ -64,6 +79,10 @@ class TestInputOutput:
 
     def test_validating_existing_config_err(self):
         assert self.config.validate_config(self.existing_config_err) == ({"emptyTest": "Test passed"}, {"test": "[test]: can't be left empty."})
+
+    def test_validating_from_parsing_config(self):
+        config, errors = self.config.parse_config(self.formatted_output_with_type)
+        assert self.config.validate_config(config) == self.result_from_formatted_output
 
     def test_config(self):
         assert self.validate(*self.config_good) == "Test passed"

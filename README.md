@@ -134,26 +134,27 @@ Notice: the library doesn't write directly to a file, instead it returns a strin
 This is done so that the user has more control over the output path and exceptions handling.
 
 ## Parsing a file
-You can obtain a dictionary with your validated data using the `parse_config` method of a TypeConfig object.
+You can extract your {option: value} pairs from a configuration file's content by using the `parse_config` method of a TypeConfig object.
 
-This method returns a tuple of two values, containing the configuration data, represented as {option:value}, and a dictionary with errors that happened during parsing, represented as {option: error}.
+This method returns a tuple of two values, containing the configuration data (yet to be validated), represented as {option:value}, and a dictionary with errors that happened during parsing, represented as {option: error}.
 
 Notice: the library doesn't read directly from a file, instead it reads a string.
 This is done so that the user has more control over the input path and exceptions handling.
 
- Parmeter | Description | Default 
- :---- | :---- | :---- 
- `file_content` | A string representing the config file to be parsed. | `Required`
- 
- ## Validating an existing dictionary
- You might want to validate an existing dictionary (for example, when working with both arguments from a CLI and a config file).
- This can be done by using the `validate_config` method of a TypeConfig object.
+Parmeter | Description | Default 
+:---- | :---- | :---- 
+`file_content` | A string representing the content config file to be parsed. | `Required`
 
- This method works in a similar way as `parse_config`, but takes a dictionary instead of a string. It also returns both a dictionary with the validated data and a dictionary with errors that happened during validation.
+## Validating an existing dictionary
+To validate a dictionary containing your options, you can use the `validate_config` method of a TypeConfig object.
+This can be useful for configurations coming from a file formatted by type_config and for options coming from the `argparse` library.
 
- Parmeter | Description | Default 
- :---- | :---- | :---- 
- `config` | A dictionary containing keys that are part of the TypeConfig's options. | `Required`
+It returns a dictionary with the validated data and a dictionary with errors that happened during validation (using the error linked to the option's type).
+Errors are also raised when an option or a type are not part of the TypeConfig's instance's options and types.
+
+Parmeter | Description | Default 
+:---- | :---- | :---- 
+`config` | A dictionary containing keys that are part of the TypeConfig's options. | `Required`
 
 ## Merging configurations
 To merge two configurations, you can use the `merge_config` method of a TypeConfig object.<br>
