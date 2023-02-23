@@ -8,20 +8,20 @@ If you find a problem, please write an issue, so I'll be able to solve it :)
 
 ## Table of contents (for github) 📝
 - [Type config ⭐🐙](#type-config-)
-  - [Features](#features)
-  - [Demo](#demo)
+- [Features](#features)
+- [Demo](#demo)
 - [Getting started](#getting-started)
-  - [Installation 🔧](#installation-)
-  - [Initialisation](#initialising-the-typeconfig-object)
-  - [Adding options](#adding-options)
-  - [Adding types](#adding-types)
-  - [Getters](#getters)
-  - [Creating a file](#creating-a-file)
-  - [Parsing a file](#parsing-a-file)
-  - [Validating an existing dictionary](#validating-an-existing-dictionary)
-  - [Merging configurations](#merging-configurations)
-  - [Healing a broken configuration](#healing-a-broken-configuration)
-  - [Error handling 🔧](#error-handling-)
+- [Installation 🔧](#installation-)
+- [Initialisation](#initialising-the-typeconfig-object)
+- [Adding options](#adding-options)
+- [Adding types](#adding-types)
+- [Getters](#getters)
+- [Creating a file](#creating-a-file)
+- [Parsing a file](#parsing-a-file)
+- [Validating an existing dictionary](#validating-an-existing-dictionary)
+- [Merging configurations](#merging-configurations)
+- [Healing a broken configuration](#healing-a-broken-configuration)
+- [Error handling 🔧](#error-handling-)
 - [Contributing 💕](#contributing-)
 - [Extra 🐙](#extra-)
 
@@ -43,19 +43,19 @@ config = TypeConfig(type_hint=True)
 Adding options:
 ```python
 config.add_option(
-  option="shopping list",
-  type="List>=3",
-  help="What I have to buy",
-  important_help="Must be a list of at least three items, separated by commas",
+option="shopping list",
+type="List>=3",
+help="What I have to buy",
+important_help="Must be a list of at least three items, separated by commas",
 )
 ```
 Adding a type (they can have descriptive names❗):
 ```python
 config.add_type(
-  type="List>=3",
-  validate=lambda list: len(list.split(",")) >= 3,
-  cast=lambda list: [item.trim() for item in list.split(",")],
-  error="The list must have at least three items"
+type="List>=3",
+validate=lambda list: len(list.split(",")) >= 3,
+cast=lambda list: [item.trim() for item in list.split(",")],
+error="The list must have at least three items"
 )
 ```
 This is how entries can look in a config file made with `type_config`:
@@ -89,33 +89,33 @@ The TypeConfig object is the main interface used by this library to help you han
 config = TypeConfig(type_hint:bool=False)
 ```
 
- Parmeter | Description | Default 
- :---- | :---- | :---- 
+Parmeter | Description | Default 
+:---- | :---- | :---- 
 `type_hint` | Whether or not to add type hints to your config file.<br>This initialises the class' `self.type_hint`, which can later on be changed directly by the user and is used by `heal_config` and `create_config`. | `False` |
 
 ## Adding options
 Options are added using the method `add_option` of a TypeConfig object.
 
 They hold many information useful when parsing and debugging.
- Parmeter | Description | Default 
- :---- | :---- | :---- 
- `option` | The option's name | `Required` 
- `type` | The type associated with this option | `Required`
- `help` | An help string used to explain what the option does or what it is for.<br>This is showed under the option in the config file. | `Required`
- `default` | A default value used when the option is left blank | `Empty_string`
- `can_be_empty` | Whether or not the option can be left without a value.<br>The value that will be given is `None`.<br>Notice: default is applied when there is no value, so it's suggested using this option while leaving `default` empty. | `False`
- `important_help` | Extra information that could be useful when writing the option's value | `Empty_string`
+Parmeter | Description | Default 
+:---- | :---- | :---- 
+`option` | The option's name | `Required` 
+`type` | The type associated with this option | `Required`
+`help` | An help string used to explain what the option does or what it is for.<br>This is showed under the option in the config file. | `Required`
+`default` | A default value used when the option is left blank | `Empty_string`
+`can_be_empty` | Whether or not the option can be left without a value.<br>The value that will be given is `None`.<br>Notice: default is applied when there is no value, so it's suggested using this option while leaving `default` empty. | `False`
+`important_help` | Extra information that could be useful when writing the option's value | `Empty_string`
 
 ## Adding types
 Types are added using the method `add_type` of a TypeConfig object.
 
 They are used for data validation.
- Parmeter | Description | Default 
- :---- | :---- | :---- 
- `type` | The type's name | `Required`
- `validate` | A function that returns a boolean, which is used to validate the option's value. | `Required`
- `cast` | A function that "casts" a specific type upon the option's value, effectively transforming it from string to the desired type. | `Required`
- `error` | A message describing what could be the reason when the option's value is considered invalid.<br>This is showed under the option in the config file. | `Required`
+Parmeter | Description | Default 
+:---- | :---- | :---- 
+`type` | The type's name | `Required`
+`validate` | A function that returns a boolean, which is used to validate the option's value. | `Required`
+`cast` | A function that "casts" a specific type upon the option's value, effectively transforming it from string to the desired type. | `Required`
+`error` | A message describing what could be the reason when the option's value is considered invalid.<br>This is showed under the option in the config file. | `Required`
 
 ## Getters
 You can get a COPY of the options and types of a TypeConfig object by using `get_options` and `get_types`.
@@ -129,6 +129,13 @@ Method | Description
 ## Creating a file
 You can obtain the formatted text of a config file with the `create_config` method of a TypeConfig's object.
 If `self.type_hint` is set to `True`, type hints will be added before each option. This DOES NOT have any effect on the parsing are are just "hints" for the developer.
+
+The optional argument `values_to_inject` can be very useful for testing; this can allow you to have a json file with values that have to be set but do not have a default value (or have an invalid value), and test your application dynamically, reducing the amount of maintainance required when adding or removing options (since you can generate a new config file in each test session).
+
+`values_to_inject` overwrites only options that are present and only for that ouput; extra arguments are simply not taken into account and the TypeConfig instance's configuration is left untouched.
+Parmeter | Description | Default 
+:---- | :---- | :---- 
+`values_to_inject` | A dictionary containing {option:value} pairs, which overwrite the default value written to the output. | `{}`
 
 Notice: the library doesn't write directly to a file, instead it returns a string that can be written to an ini file.
 This is done so that the user has more control over the output path and exceptions handling.
@@ -170,10 +177,10 @@ Notice: Falsy options are considered valid values. Only `None` values are overwr
 Notice: no validation is done during this operation and only options present in the input configurations will be written to the result.
 
 
- Parmeter | Description | Default 
- :---- | :---- | :---- 
- `Overwriting_config` | The configuration dictionary which values will be preferred when merging. | `Required`
- `Overwritable_config` | The configuration dictionary which values will be overwritten, if possible. | `Required`
+Parmeter | Description | Default 
+:---- | :---- | :---- 
+`Overwriting_config` | The configuration dictionary which values will be preferred when merging. | `Required`
+`Overwritable_config` | The configuration dictionary which values will be overwritten, if possible. | `Required`
 
 ## Healing a broken configuration
 The library has a method for "healing" badly formatted configurations, which is the `heal_config` method of a TypeConfig object. This method maintains {option: value} pairs if the option, equal sign and value are formatted correctly and the option is part of the TypeConfig object. This method also restores comments and whitespaces.
@@ -202,24 +209,24 @@ will become:
 # And this is the original help line
 ```
 
- Parmeter | Description | Default 
- :---- | :---- | :---- 
- `file_content` | A string representing the broken file content to restore. | `Required`
+Parmeter | Description | Default 
+:---- | :---- | :---- 
+`file_content` | A string representing the broken file content to restore. | `Required`
 
 ### Known bugs:
 - `Heal_config` does not remove duplicate options for now; a fix is planned.
 
- ## Error Handling 🔧
+## Error Handling 🔧
 This library has only two kinds of errors: `ParsingError` and `ValidationError`.<br>They can be imported using:
 ```python
 from type_config.errors import ParsingError, ValidationError
 ```
 This is a list of when they are used (all of these errors should be handled internally):
 
- Error | Situations | Methods 
- :---- | :---- | :----- 
- `ParsingError` |- When an option  isn't part of the TypeConfig's object configuration<br>- When an option that can't be left empty is None/Falsy<br> | `parse_config`
- `ValidationError` | -  When a type or an option isn't part of the TypeConfig's object configuration<br>- When an option that can't be left empty is None/Falsy<br>- When a value is invalid (Custom error message) | `prase_config`, `validate_config`
+Error | Situations | Methods 
+:---- | :---- | :----- 
+`ParsingError` |- When an option  isn't part of the TypeConfig's object configuration<br>- When an option that can't be left empty is None/Falsy<br> | `parse_config`
+`ValidationError` | -  When a type or an option isn't part of the TypeConfig's object configuration<br>- When an option that can't be left empty is None/Falsy<br>- When a value is invalid (Custom error message) | `prase_config`, `validate_config`
 
 # Contributing 💕
 Feel free to open issues asking for more information or to reach out to me!

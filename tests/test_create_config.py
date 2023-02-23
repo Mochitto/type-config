@@ -12,6 +12,21 @@ class TestInputOutput:
             "# A test option"
             )
 
+    extra_config = {
+        "test": "",
+        "test2": "value"
+        }
+
+    formatted_output_with_extra =(
+        "test = \n"
+        "# !!! The test must pass\n"
+        "# A test option\n"
+        "\n"
+        "test2 = value\n"
+        "# A test option"
+        )
+
+
     formatted_output_with_type = (
             "[TestType] test = value\n"
             "# !!! The test must pass\n"
@@ -67,6 +82,9 @@ class TestInputOutput:
         self.config.type_hint = True
         assert self.config.create_config() == self.formatted_output_with_type
         self.config.type_hint = False
+
+    def test_create_with_extra(self):
+        assert self.config.create_config(self.extra_config) == self.formatted_output_with_extra
 
     def test_parsing(self):
         assert self.config.parse_config(self.formatted_output) == (self.result_config, self.result_error)

@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The Major version 1.y.z is to be considered in development; things can break and change at any moment. 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.3.0] - 2023-02-23
+
+### Changed
+- Now `create_config` can take an extra argument, which changes the default value of the options, when writing the config file. This allows you to have a json file to "fill" the configuration when testing things (and have a valid configuration).
+
 ## [1.2.0] - 2023-02-23
 
 ### Changed

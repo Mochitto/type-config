@@ -204,16 +204,22 @@ class TypeConfig:
         result += help
         return result.format(**option_info)
 
-    def create_config(self) -> str:
-        # TODO: I should change the default value here using another dictionary
+    def create_config(self, values_to_inject: Dict[str, str]={}) -> str:
         """
         Return a formatted string that can be written to a file
         with your configuration's options, values and comments.
+        If values_to_inject is given, the pairs in the dictionary
+        overwrite the default option's value when writing.
         """
         options_to_write = []
         for option_info in self._options.values():
+            option_info_copy = option_info.copy()
+
+            if option_info_copy["option"] in values_to_inject:
+                option_info_copy["default"] = values_to_inject[option_info_copy["option"]]
+
             options_to_write.append(
-                self._formatter(option_info, self.type_hint)
+                self._formatter(option_info_copy, self.type_hint)
             )
 
         return "\n\n".join(options_to_write)
