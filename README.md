@@ -1,9 +1,9 @@
 # Type config ⭐🐙
 
-`Type-config` is a small python library that let's you add custom types and validations to your config file.
+`Type-config` is a small python library that lets you add custom types and validations to your config file.
 The project's focus is on readability and maintainability, using a simple ini-like formatting.
 
-This project is being tested and very young. There could be updates soon and not everything might work as expected.<br>
+This project is being tested and is young. There could be updates soon and not everything might work as expected.<br>
 If you find a problem, please write an issue, so I'll be able to solve it :)
 
 ## Table of contents (for github) 📝
@@ -26,10 +26,11 @@ If you find a problem, please write an issue, so I'll be able to solve it :)
 - [Extra 🐙](#extra-)
 
 ## Features
-- Define custom types for the validation of your config file's data, applied during parsing
+- User-friendly config file format (everything is just a string for them!)
+- Define custom types and have automatic validation of your config file's data
 - Automatic formatting of your config file
-- Possibility of recovering a corrupted (badly formatted) file
-- Merging configurations (useful when having CLI arguments and a config file)
+- Possibility of recovering a corrupted (badly formatted) file, while the non-corrupted user's custom configuration
+- Merging configurations (useful when having CLI arguments and a config file, or multiple config files)
 - Attaching error and help messages to each option, for clear and effective communication 
 - Adding type hints to your configuration file to help you during development
 
